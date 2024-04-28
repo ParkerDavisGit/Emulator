@@ -1,5 +1,6 @@
 # Mine
 Roms/
+*.bat
 
 # Compiled class file
 *.class
