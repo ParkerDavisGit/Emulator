@@ -12,6 +12,7 @@ public class Emulator
     public static void main(String[] args)
     {
         System.out.println("Program Started");
-        assemblyCompiler.compile("1");
+        assemblyCompiler.read("1");
+        assemblyCompiler.printRAM();
     }
 }
