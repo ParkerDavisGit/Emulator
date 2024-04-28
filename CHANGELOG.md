@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.0] - 2024-04-28
+## [0.0.1] - 2024-04-28
 
 ### Added
  - Emulator Class (Main Wrapper)
