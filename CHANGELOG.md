@@ -5,11 +5,11 @@
 ### Added
  - Emulator Class (Main Wrapper)
  - AssemblyEmulator Class (Emulates basic 6502 assembly)
+ - AssemblyCompiler Class (Emulates basic 6502 Machine Code)
 
 ### Changed
- - Updated .gitignore to ignore compile batch file.
+ - Updated .gitignore to ignore batch files.
 
-### Removed
 
 
 ## [0.0.0] - 2024-04-28
