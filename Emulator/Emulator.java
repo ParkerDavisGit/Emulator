@@ -13,6 +13,6 @@ public class Emulator
     {
         System.out.println("Program Started");
         assemblyEmulator.read("1");
-        assemblyEmulator.printRAM();
+        //assemblyEmulator.printRAM();
     }
 }
