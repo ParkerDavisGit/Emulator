@@ -9,8 +9,13 @@ public class AssemblyEmulator
 {
     static HexFormat hex = HexFormat.of();
 
+    public byte A = 0;
+    public byte X = 0;
+    public byte Y = 0;
+    public byte[] PC = {0, 0};
+
     // PROGRAM RAM
-    byte[] ram = new byte[4096];
+    byte[] ram = new byte[320];
 
     public AssemblyEmulator()
     {
@@ -42,6 +47,8 @@ public class AssemblyEmulator
             {
                 ram[i] = (byte) readByte;
                 i++;
+                if (i >= 320)
+                    break;
             }
 
             byteReader.close();
@@ -52,7 +59,46 @@ public class AssemblyEmulator
         }
     }
 
-    
+    // Parse opcode and return a string of data
+    public void parseNext()
+    {
+        System.out.println(hex.toHexDigits(PC[0]));
+        // A9 - LDA # - Load Accumulator Immediate
+        switch (hex.toHexDigits(ram[bytesToInt(PC[1], PC[0])])) {
+            case "4c":
+                OPCODE_LDA_I();
+                incrementPC(3);
+                OPCODE_LDA_I();
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+    // Given 2 bytes, return an int value
+    // [byte1][byte2] read as hex value into int
+    public int bytesToInt(byte one, byte two)
+    {
+        return (one & 0xff) << 8 | (two & 0xff);
+    }
+
+    // Increments the PC by a set amount
+    public void incrementPC(int times)
+    {
+        // Will generally be either 1 or 3 times
+        for (int i = 0; i < times; i++)
+        {
+            System.out.println(hex.toHexDigits(PC[1]) + hex.toHexDigits(PC[0]));
+            // First, see if the first digit will overflow.
+            if (PC[0] == -1)
+                PC[1]++;
+            // If it does overflow, it'll reset back to 0 by itself
+            PC[0]++;
+        }
+    }
+
+    // Displays all the ram in memory
     public void printRAM()
     {
         int l = 0;
@@ -66,5 +112,11 @@ public class AssemblyEmulator
                 System.out.print("\n");
             }
         }
+    }
+    
+    /// OPCODE ZONE ///
+    public void OPCODE_LDA_I()
+    {
+        System.out.println(bytesToInt(PC[1], PC[0]) + " " + ram[bytesToInt(PC[1], PC[0])]);
     }
 }
